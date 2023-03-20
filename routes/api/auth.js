@@ -11,6 +11,8 @@ const router = express.Router();
 // signup
 router.post("/register", validateBody(schemas.registerSchema), ctrl.register);
 
+router.get("/verify/:verificationToken", ctrl.verifyEmail);
+
 // signin
 router.post("/login", validateBody(schemas.loginSchema), ctrl.login);
 
@@ -23,6 +25,12 @@ router.patch(
   authenticate,
   upload.single("avatar"),
   ctrl.updateAvatar
+);
+
+router.post(
+  "/verify",
+  validateBody(schemas.resendEmailVerify),
+  ctrl.resendEmailVerify
 );
 
 module.exports = router;
